@@ -9,14 +9,12 @@ Scenario('test something', ({ I }) => {
     I.fillField('#loginform-password', 'Spe-2022');
     I.wait(1);
     I.click('#login');
-    // I.wait(10);
     I.waitForNavigation();
+
     //Create VA
-    // I.see('Dashboard');
-    // I.see('VA Management', '.page-sidebar-wrapper');
     I.click('VA Management');
     I.wait(2);
-    // I.see('Create VA', '.sub-menu');
+    I.see('Create VA', '.sub-menu');
     I.click('Create VA');
     I.wait(4);
     
@@ -24,9 +22,9 @@ Scenario('test something', ({ I }) => {
     I.click('.select2-choice');
     I.selectOption('#createvaform-client_id','8-123-Sekolah A');
     I.wait(2);
-    I.fillField('Billing ID', 'Automation-Rifandi-08');
+    I.fillField('Billing ID', 'Automation-Rifandi-04');
     I.wait(2);
-    I.fillField('VA Number', '8123211399043889');
+    I.fillField('VA Number', '8123211399043777');
     I.wait(2);
     I.fillField('Name', 'Ahmad Rifandi');
     I.wait(2);
@@ -45,10 +43,30 @@ Scenario('test something', ({ I }) => {
     I.wait(2);
     I.see('Create');
     I.click('Create','#create-va');
-    I.wait(5);
+    I.wait(4);
 
-    //Report Billing Data
-    // I.waitForNavigation();
+    //Bulk Upload
+    I.click('Bulk Upload');
+    I.wait(1);
+    I.see('Client');
+    I.click('.select2-choice');
+    I.selectOption('#bulkuploadform-client_id','8-123-Sekolah A');
+    I.wait(1);
+    I.click('Next');
+    I.attachFile('File', '/bulk-upload/rifandi.csv');
+    I.wait(1);
+    I.selectOption('Type','Create');
+    I.wait(1);
+    I.selectOption('Billing Type', 'Fixed Payment');
+    I.wait(1);
+    I.click('Submit');
+    I.wait(2);
+    I.click('System Logs');
+    I.wait(2);
+    I.click('Historical Upload');
+    I.wait(3);
+
+    //Report
     I.click('Report');
     I.wait(2);
     I.click('Billing Data');
@@ -56,13 +74,13 @@ Scenario('test something', ({ I }) => {
     I.selectOption('#transactionssearch-request_type','Portal');
     I.pressKey('Enter');
     I.wait(2);
-    I.fillField('TransactionsSearch[virtual_account]','8123211399043889');
+    I.fillField('TransactionsSearch[virtual_account]','8123211399043777');
     I.pressKey('Enter');
     I.wait(2);
-    I.fillField('TransactionsSearch[trx_id]','Automation-Rifandi-08');
+    I.fillField('TransactionsSearch[trx_id]','Automation-Rifandi-04');
     I.pressKey('Enter');
     I.wait(2);
     I.selectOption('#transactionssearch-export_excel','csv_semicolon');
     I.click('Download');
-    I.saveScreenshot('Filter-Sukses.png');
+    I.saveScreenshot('Sukses.png');
 });
